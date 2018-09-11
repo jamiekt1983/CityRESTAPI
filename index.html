@@ -24,8 +24,7 @@ data.forEach((photos) => {
                        <li> id : ${id}</li>
                        <li> albumId : ${albumId}</li>
                        <li> title : ${title} </li>
-                       <li> url : ${url} </li>
-                       <li> thumbnailUrl : ${thumbnailUrl} </li>
+                       <a href="${url}"><img src="${thumbnailUrl}"></a>
                       </div>`;
                         document.getElementById('result').innerHTML = result;
                     });
