@@ -23,7 +23,9 @@
     const { id, albumId, title, url, thumbnailUrl } = photos
     photosAPI__container +=
         `<div class="photosAPI__listing">
-           <a href="${url}"><img src="${thumbnailUrl}" class="photosAPI__listing-img"></a>
+           <a href="${url}"><img src="${thumbnailUrl}" class="photosAPI__listing-img">
+              <div class="photosAPI__listing-img--zoom"><img src="/Documents/GitHub/CityRESTAPI/images/zoom.svg"></div>
+           </a>
            <p>id : ${id}</p>
            <p>albumId : ${albumId}</p>
            ${title}
@@ -33,7 +35,7 @@
         });
     })
 
-    // add some error trapping
+    // add some error trapping that can explain in english where the error occurred
     .catch(function(error) {
       console.log('Looks like there was a problem: \n', error);
       document.getElementById('photosAPI__container').innerHTML = "Error getting the requested data";

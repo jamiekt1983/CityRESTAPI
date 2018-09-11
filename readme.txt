@@ -22,3 +22,5 @@ Add media query for mobile responsive design
 Sort results by id and in ascending order
 
 Apply some error trapping
+
+Add svg image on hover to indicate photo can be enlarged
