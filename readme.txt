@@ -16,3 +16,5 @@ Display a list of photos data. Improve loading time by applying the _limit param
 Display photo thumbnail and link to url
 
 Add flexbox styling to the lisitngs
+
+Add media query for mobile responsive design
