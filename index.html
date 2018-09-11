@@ -5,32 +5,40 @@
 <head>
 <link rel="stylesheet" href="/Documents/GitHub/CityRESTAPI/css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
 <h1>City University - RESTful API test</h1>
 
 <script>
-// fetch one record from the photos album and test in console
-fetch('https://jsonplaceholder.typicode.com/photos?_limit=10')
-  .then(response => response.json())
+  // fetch 10 records from the photos album
+  fetch('https://jsonplaceholder.typicode.com/photos?_page=1&_limit=10&_sort=id&_order=asc')
+    .then(response => response.json())
 
-  .then(function (data) {
-// loop through each record in photos album and display html list
-let photosAPI__container = `<p class="photosAPI__container-title">Photos info from Jsonplaceholder API:</p>`;
-data.forEach((photos) => {
-                const { id, albumId, title, url, thumbnailUrl } = photos
-                photosAPI__container +=
-                    `<div class="photosAPI__listing">
-                       <a href="${url}"><img src="${thumbnailUrl}" class="photosAPI__listing-img"></a>
-                       <p>id : ${id}</p>
-                       <p>albumId : ${albumId}</p>
-                       ${title}
+    .then(function (data) {
+  // loop through each record in photos album and display html list
+  let photosAPI__container = `<p class="photosAPI__container-title">Photos info from Jsonplaceholder API:</p>`;
+  data.forEach((photos) => {
+    const { id, albumId, title, url, thumbnailUrl } = photos
+    photosAPI__container +=
+        `<div class="photosAPI__listing">
+           <a href="${url}"><img src="${thumbnailUrl}" class="photosAPI__listing-img"></a>
+           <p>id : ${id}</p>
+           <p>albumId : ${albumId}</p>
+           ${title}
 
-                      </div>`;
-                        document.getElementById('photosAPI__container').innerHTML = photosAPI__container;
-                    });
-                })
+          </div>`;
+            document.getElementById('photosAPI__container').innerHTML = photosAPI__container;
+        });
+    })
+
+    // add some error trapping
+    .catch(function(error) {
+      console.log('Looks like there was a problem: \n', error);
+      document.getElementById('photosAPI__container').innerHTML = "Error getting the requested data";
+    });
+
 
 </script>
 

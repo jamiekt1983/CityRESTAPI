@@ -18,3 +18,7 @@ Display photo thumbnail and link to url
 Add flexbox styling to the lisitngs
 
 Add media query for mobile responsive design
+
+Sort results by id and in ascending order
+
+Apply some error trapping
