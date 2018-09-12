@@ -14,20 +14,25 @@
 <h1>City University - RESTful API test</h1>
 <script>
 (function () {
+    // module name app and no dependencies []
     var app = angular.module('app', []);
 }());
 
 (function(module) {
 
+  // give demoController access to $http, $scope
   var demoController = function($http, $scope) {
 
+    // get photos data
     $http.get('https://jsonplaceholder.typicode.com/photos').then(function(response) {
       $scope.data = response.data;
     })
 
+    // set pag size and total items to display/paginate
     var pageSize = 10;
     var totalItems = 5000;
 
+    // calculate number of pages for pagination
     $scope.numberOfPages = totalItems / pageSize;
     $scope.currentPage = 0;
     $scope.pages = new Array(pageSize);
@@ -51,6 +56,7 @@
       return $scope.pages;
     }
 
+    // get new set of photos depending on what page is selected
     $scope.search = function(index) {
       if (index <= 0 || index > totalItems / pageSize) return;
       $scope.currentPage = index;
@@ -70,6 +76,7 @@
 
 </script>
 
+<!-- html to display photos data -->
 <div ng-controller="demoController" ng-init="search(1)">
 <div id="photosAPI__container">
         <div ng-repeat="item in data">
@@ -87,6 +94,7 @@
             </div>
         </div>
 
+        <!-- change value of currentPage on click -->
         <div class="pagination-container">
           <ul class="pagination pagination-lg">
             <li class="page-item">
