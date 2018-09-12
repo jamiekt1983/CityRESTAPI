@@ -81,3 +81,26 @@ body{
   }
 
 }
+
+/* pagination */
+.photosAPI__listing--fill{
+  width: auto;
+}
+
+.ng-scope{
+  flex-grow: 1;
+}
+
+.pagination-container{
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .pagination-container{
+    width: 100%;
+  }
+  .photosAPI__listing--fill{
+    height: 200px;
+  }
+}

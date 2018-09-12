@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<title>City University - RESTful API test</title>
+
+<head>
+<link rel="stylesheet" href="/CityRESTAPI/css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+
+</head>
+
+<body ng-app="app">
+<h1>City University - RESTful API test</h1>
+<script>
+(function () {
+    var app = angular.module('app', []);
+}());
+
+(function(module) {
+
+  var demoController = function($http, $scope) {
+
+    $http.get('https://jsonplaceholder.typicode.com/photos').then(function(response) {
+      $scope.data = response.data;
+    })
+
+    var pageSize = 10;
+    var totalItems = 5000;
+
+    $scope.numberOfPages = totalItems / pageSize;
+    $scope.currentPage = 0;
+    $scope.pages = new Array(pageSize);
+    for (var i = 1; i <= pageSize; i++) {
+      $scope.pages[i - 1] = i;
+    }
+    $scope.getNumber = function() {
+
+      //Page up
+      for (var i = 0; i < $scope.currentPage - $scope.pages[$scope.pages.length - 1]; i++) {
+        $scope.pages.shift();
+        $scope.pages.push($scope.currentPage);
+      }
+
+      //Page down
+      for (var i = 0; i < $scope.pages[0] - $scope.currentPage; i++) {
+        $scope.pages.pop();
+        $scope.pages.unshift($scope.currentPage);
+      }
+
+      return $scope.pages;
+    }
+
+    $scope.search = function(index) {
+      if (index <= 0 || index > totalItems / pageSize) return;
+      $scope.currentPage = index;
+
+      $http.get('https://jsonplaceholder.typicode.com/photos').then(function(response) {
+        var temp = response.data;
+        $scope.data = temp.splice(pageSize * (index - 1), 10);
+      })
+
+    }
+
+  };
+
+  module.controller("demoController", demoController);
+
+}(angular.module("app")));
+
+</script>
+
+<div ng-controller="demoController" ng-init="search(1)">
+<div id="photosAPI__container">
+        <div ng-repeat="item in data">
+
+          <div class="photosAPI__listing photosAPI__listing--fill">
+             <a href="{{item.url}}"><img src="{{item.thumbnailUrl}}" class="photosAPI__listing-img">
+                <div class="photosAPI__listing-img--zoom"><img src="/CityRESTAPI/images/zoom.svg"></div>
+             </a>
+             <div class="photosAPI__listing-content">
+               <p>id: {{item.id}} albumId: {{item.albumId}}</p>
+               <p class="photosAPI__listing-title">{{item.title}}</p>
+             </div>
+
+            </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+          <ul class="pagination pagination-lg">
+            <li class="page-item">
+              <a href="#" ng-click="search(currentPage-1)">
+                <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li ng-class="currentPage === i ? 'active' : ''" ng-repeat="i in getNumber() track by $index">
+              <a class="page-link" href="#" ng-click="search(i)">{{i}}</a>
+            </li>
+            <li class="page-item">
+              <a href="#" ng-click="search(currentPage+1)">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+</body>
+
+</html>
