@@ -28,6 +28,7 @@ GitHub pages - https://jamiekt1983.github.io/CityRESTAPI/
 
 -created paginationtest to test out angular pagination, using bootstrap (https://jamiekt1983.github.io/demo/index.html)
 
+
 Future changes:
 -implement scss variables
 
