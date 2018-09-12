@@ -1,6 +1,6 @@
 # Web Developer assessment - create a small app that pulls and displays data from a RESTful API.
 
-GitHub pages - https://jamiekt1983.github.io/CityRESTAPI/
+GitHub pages - https://jamiekt1983.github.io/CityRESTAPI/ (with pagination: https://jamiekt1983.github.io/demo/index.html)
 
 -Create GitHub repository and clone to desktop - jamiekt1983/CityRESTAPI
 
