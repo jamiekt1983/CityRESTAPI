@@ -40,3 +40,5 @@ GitHub pages - https://jamiekt1983.github.io/CityRESTAPI/ (with pagination: http
 -create dropdown to select album
 
 -improve pagination - Github uses the Link response header
+
+-use albumId to get album title from albums resource (first fetch the albums and then while rendering the photo list, pick the album information)
