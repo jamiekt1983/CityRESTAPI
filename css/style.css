@@ -1,23 +1,55 @@
 /* master stylesheet for City University - RESTful API test */
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 #photosAPI__container{
   display: flex;
   flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+  min-width: 300px;
 }
 
 .photosAPI__listing{
   position: relative;
   width: 180px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 10px;
   margin-right: 10px;
 }
 
+.photosAPI__listing-title{
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .photosAPI__listing-img{
   display: block;
   margin: 0 auto;
   transition: .8s ease;
+}
+
+.photosAPI__listing-id-bg{
+  width: 0;
+  height: 0;
+  border-top: 40px solid #eee;
+  border-right: 40px solid transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.photosAPI__listing-id{
+  position: absolute;
+  margin: 0;
+  top: -37px;
+  font-size: 12px;
+  width: 25px;
+  text-align: center;
 }
 
 .photosAPI__listing:hover .photosAPI__listing-img{
@@ -40,4 +72,12 @@
   .photosAPI__listing{
     width: 100%;
   }
+  .photosAPI__listing-img{
+    float: left;
+    margin-right: 10px;
+  }
+  #photosAPI__container{
+    width: 100%;
+  }
+
 }

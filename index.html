@@ -3,7 +3,7 @@
 <title>City University - RESTful API test</title>
 
 <head>
-<link rel="stylesheet" href="/Documents/GitHub/CityRESTAPI/css/style.css">
+<link rel="stylesheet" href="/CityRESTAPI/css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -14,22 +14,24 @@
 <script>
   // fetch 10 records from the photos album
   fetch('https://jsonplaceholder.typicode.com/photos?_page=1&_limit=10&_sort=id&_order=asc')
+  // fetch('https://jsonplaceholder.typicode.com/photos?_page=2&per_page=50')
     .then(response => response.json())
 
     .then(function (data) {
   // loop through each record in photos album and display html list
-  let photosAPI__container = `<p class="photosAPI__container-title">Photos info from Jsonplaceholder API:</p>`;
+  let photosAPI__container = '';
   data.forEach((photos) => {
     const { id, albumId, title, url, thumbnailUrl } = photos
     photosAPI__container +=
         `<div class="photosAPI__listing">
            <a href="${url}"><img src="${thumbnailUrl}" class="photosAPI__listing-img">
-              <div class="photosAPI__listing-img--zoom"><img src="/Documents/GitHub/CityRESTAPI/images/zoom.svg"></div>
+              <div class="photosAPI__listing-img--zoom"><img src="/CityRESTAPI/images/zoom.svg"></div>
            </a>
-           <p>id : ${id}</p>
-           <p>albumId : ${albumId}</p>
-           ${title}
-
+           <div class="photosAPI__listing-id-bg">
+              <p class="photosAPI__listing-id">${id}</p>
+           </div>
+           <p class="photosAPI__listing-album">albumId: ${albumId}</p>
+           <p class="photosAPI__listing-title">${title}</p>
           </div>`;
             document.getElementById('photosAPI__container').innerHTML = photosAPI__container;
         });
@@ -40,6 +42,13 @@
       console.log('Looks like there was a problem: \n', error);
       document.getElementById('photosAPI__container').innerHTML = "Error getting the requested data";
     });
+
+
+
+
+
+
+
 
 
 </script>
