@@ -6,29 +6,26 @@
 <link rel="stylesheet" href="/CityRESTAPI/css/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+<script src="path-to-script/angularjs.min.js"></script>
+<script src="path-to-script/lazy-scroll.min.js"></script>
 
 </head>
 
-<!-- The AngularJS application is defined by  ng-app="myApp". The application runs inside the <div> -->
 <body ng-app="app">
 <h1>City University - RESTful API test</h1>
 <script>
 (function () {
-    // The "'app'" parameter refers to an HTML element in which the application will run. The empty array in angular.module('myApp', []).
-    // This array is the list of modules myApp depends on.
-    var app = angular.module('app', []);
+    // module name app and no dependencies []
+    var app = angular.module('app', [lazy-scroll]);
 }());
 
 (function(module) {
 
-  // js object that contains properties and functions. each controller accept scope as a parameter which refers to the module that
-  // controller is to control. Adding behaviour to a Scope Object
+  // give demoController access to $http, $scope
   var demoController = function($http, $scope) {
 
     // get photos data
     $http.get('https://jsonplaceholder.typicode.com/photos').then(function(response) {
-      // the scope and its properties as the data which is used to render the view
       $scope.data = response.data;
     })
 
@@ -36,23 +33,18 @@
     var pageSize = 10;
     var totalItems = 5000;
 
-    // these are added to the controller.  define number of page
+    // calculate number of pages for pagination
     $scope.numberOfPages = totalItems / pageSize;
     $scope.currentPage = 0;
     $scope.pages = new Array(pageSize);
     for (var i = 1; i <= pageSize; i++) {
       $scope.pages[i - 1] = i;
     }
-    // create function that is activated on mouse press and determines the current page and changes it up or down. The currentPage
-    // variable changes depending on what the user clicks
     $scope.getNumber = function() {
 
-      //Page up. if current page-total page length is greater than 0, then +1 to i. i changes when user clicks page up or down
+      //Page up
       for (var i = 0; i < $scope.currentPage - $scope.pages[$scope.pages.length - 1]; i++) {
-        // shift removes the first item of an array. pop removes the last. remove the first item will take the next 10 photos on the next page
         $scope.pages.shift();
-        // The push() method adds new items to the end of an array, and returns the new length. The unshift() method adds one or more elements
-        // to the beginning of an array and returns the new length of the array.
         $scope.pages.push($scope.currentPage);
       }
 
@@ -65,16 +57,13 @@
       return $scope.pages;
     }
 
-    // get new set of photos depending on what page is selected. if index is less than 0 or greater than items/size
+    // get new set of photos depending on what page is selected
     $scope.search = function(index) {
       if (index <= 0 || index > totalItems / pageSize) return;
       $scope.currentPage = index;
 
       $http.get('https://jsonplaceholder.typicode.com/photos').then(function(response) {
-        // this is a temp copy of the $scope.data = response.data;
         var temp = response.data;
-        // change the arrage - temp is not an entirely new array, just a reference to response.data. JavaScript arrays are objects, so temp and
-        // mainArray are both references to the same underlying object. Here you can use slice() or concat()
         $scope.data = temp.splice(pageSize * (index - 1), 10);
       })
 
@@ -82,20 +71,18 @@
 
   };
 
-  // add the response data to the demoController div
   module.controller("demoController", demoController);
 
 }(angular.module("app")));
 
 </script>
 
-<!-- html to display photos data. ng-init="search(1) - Create a variable when initiating the application -->
+<!-- html to display photos data -->
 <div ng-controller="demoController" ng-init="search(1)">
 <div id="photosAPI__container">
         <div ng-repeat="item in data">
 
           <div class="photosAPI__listing photosAPI__listing--fill">
-            <!-- HTML displays the photos using handlebars that angular js convert. Interpolation/attribute bindings -->
              <a href="{{item.url}}"><img src="{{item.thumbnailUrl}}" class="photosAPI__listing-img">
                 <div class="photosAPI__listing-img--zoom"><img src="/CityRESTAPI/images/zoom.svg"></div>
              </a>
@@ -112,7 +99,6 @@
         <div class="pagination-container">
           <ul class="pagination pagination-lg">
             <li class="page-item">
-              <!-- increase/decrease the value of i used in $scope.currentPage -->
               <a href="#" ng-click="search(currentPage-1)">
                 <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
               </a>
